@@ -1,0 +1,28 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "tinder for devs",
+  "main": "index.js",
+  "scripts": {
+    "start":"node src/app.js",
+    "dev":"nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaykumar2004/Dev-Tinder.git"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "jaykumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaykumar2004/Dev-Tinder/issues"
+  },
+  "homepage": "https://github.com/jaykumar2004/Dev-Tinder#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.9"
+  }
+}
