@@ -4,7 +4,28 @@ const express = require('express');
 //then create a new application of express
 const app = express();
 
-const {adminAuth} = require("./middlewares/auth")
+//const {adminAuth} = require("./middlewares/auth")
+
+//errors
+app.get("/getUserData",(req,res)=>{
+    try{
+        throw new Error("adfadfg")
+        res.send("User data send");
+    }
+    catch(err){
+        res.status(500).send("Some error contact support team")
+    }
+});
+
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("Something went wrong")
+    }
+})
+
+
+
+
 
 // app.use("/admin",adminAuth);
 
