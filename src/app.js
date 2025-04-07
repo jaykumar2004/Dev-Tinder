@@ -1,49 +1,37 @@
-//first require the package:
-const express = require('express');
-
-//then create a new application of express
+const express = require("express");
+const connectDb = require("./config/database");
 const app = express();
+const User = require("./models/user")
 
-//const {adminAuth} = require("./middlewares/auth")
 
-//errors
-app.get("/getUserData",(req,res)=>{
+app.post("/signup",async(req,res)=>{
+    //creating new user with the data or creating new instance of a user model
+    const user = new User({
+        firstName : "Virat",  
+        lastName : "Kohli",
+        emailId : "virat123@gmail.com",
+        password : "virat@123"
+    }); 
+
     try{
-        throw new Error("adfadfg")
-        res.send("User data send");
+        await user.save();
+        res.send("User added successfully!!!")
+    }catch(err){
+        res.status(400).send("Error saving the user" + err.message);
     }
-    catch(err){
-        res.status(500).send("Some error contact support team")
-    }
-});
-
-app.use("/",(err,req,res,next)=>{
-    if(err){
-        res.status(500).send("Something went wrong")
-    }
+    
 })
 
 
 
 
-
-// app.use("/admin",adminAuth);
-
-
-// app.get("/user",(req,res)=>{
-//     res.send("User data Sent")
-// })
-
-// app.get("/admin/getAllData",(req,res)=>{
-//     res.send("Get all the data")
-// })
+connectDb().then(()=>{
+    console.log("Database connection Established!!!...")
+    app.listen(7000,()=>{ 
+        console.log("server is successfully listining on port 7000...");
+    });
+}).catch(err=>{
+    console.error("Database cannot be Established!!!...")
+})
 
 
-// app.get("/admin/deleteUser",(req,res)=>{
-//     res.send("Deleted a User");
-// })
-
-
-app.listen(7000,()=>{ 
-    console.log("server is successfully listining on port 7000...");
-});
