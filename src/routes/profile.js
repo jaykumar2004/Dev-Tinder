@@ -35,7 +35,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
 });
 
 //forgot password
-profileRouter.post("/profile/change-password", userAuth, async (req, res) => {
+profileRouter.patch("/profile/change-password", userAuth, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
   
     try {
