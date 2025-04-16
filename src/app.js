@@ -3,7 +3,9 @@ const connectDb = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser())
 
