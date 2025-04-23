@@ -1,33 +1,42 @@
 const express = require("express");
 const connectDb = require("./config/database");
-const app = express();
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
+const app = express();
+
+// Middleware
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin: "http://localhost:5173",
     credentials: true
 }));
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
+// Routers
 const authRouter = require("./routes/auth.js");
 const profileRouter = require("./routes/profile.js");
 const requestRouter = require("./routes/request.js");
 const userRouter = require("./routes/user.js");
 
-app.use("/",authRouter);
-app.use("/",profileRouter);
-app.use("/",requestRouter);
-app.use("/",userRouter);
+// Use Routers
+app.use("/", authRouter);
+app.use("/", profileRouter);
+app.use("/", requestRouter);
+app.use("/", userRouter);
 
-connectDb().then(()=>{
-    console.log("Database connection Established!!!...")
-    app.listen(7000,()=>{ 
-        console.log("server is successfully listining on port 7000...");
+// Connect DB and start server
+const PORT = process.env.PORT || 7000;
+
+connectDb()
+  .then(() => {
+    console.log("Database connection Established!!!...");
+    app.listen(PORT, () => {
+      console.log(`Server is successfully listening on port ${PORT}...`);
     });
-}).catch(err=>{
-    console.error("Database cannot be Established!!!...")
-});
-
+  })
+  .catch(err => {
+    console.error("Database cannot be Established!!!...");
+    console.error(err);
+  });
