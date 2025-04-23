@@ -8,7 +8,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "https://dev-tinder-web-nu3a.vercel.app",
+    origin: "https://devtinder-web-ajyq.onrender.com",
     credentials: true
 }));
 app.use(express.json());
