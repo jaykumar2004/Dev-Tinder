@@ -4,9 +4,16 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 require("dotenv").config();
-
-
+const http = require("http")
 const app = express();
+
+
+// Routers
+const authRouter = require("./routes/auth.js");
+const profileRouter = require("./routes/profile.js");
+const requestRouter = require("./routes/request.js");
+const userRouter = require("./routes/user.js");
+const initializeSocket = require("./utils/socket.js");
 
 // Middleware
 app.use(cors({
@@ -16,11 +23,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// Routers
-const authRouter = require("./routes/auth.js");
-const profileRouter = require("./routes/profile.js");
-const requestRouter = require("./routes/request.js");
-const userRouter = require("./routes/user.js");
+
 
 // Use Routers
 app.use("/", authRouter);
@@ -29,9 +32,14 @@ app.use("/", requestRouter);
 app.use("/", userRouter);
 
 
+const server = http.createServer(app);
+
+initializeSocket(server);
+
+
 connectDb().then(()=>{
     console.log("Database connection Established!!!...")
-    app.listen(7000,()=>{ 
+    server.listen(7000,()=>{ 
         console.log("server is successfully listining on port 7000...");
     });
 }).catch(err=>{
