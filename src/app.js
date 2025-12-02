@@ -35,11 +35,13 @@ const server = http.createServer(app);
 
 initializeSocket(server);
 
+const PORT = process.env.PORT || 7000;
+
 connectDb()
   .then(() => {
     console.log("Database connection Established!!!...");
     server.listen(7000, () => {
-      console.log("server is successfully listining on port 7000...");
+      console.log(`Server is successfully listening on port ${PORT}...`);
     });
   })
   .catch((err) => {
