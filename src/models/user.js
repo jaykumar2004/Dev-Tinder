@@ -55,11 +55,6 @@ const userSchema = new mongoose.Schema(
     photoUrl: {
       type: String,
       default: "https://geographyandyou.com/images/user-profile.png",
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid Photo URL:" + value);
-        }
-      },
     },
     about: {
       type: String,
@@ -91,7 +86,6 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
 
 userSchema.methods.getJWT = async function () {
   const user = this;
