@@ -11,7 +11,7 @@ const getSecretRoomId = (userId, targetUserId) => {
 
 const initializeSocket = (server) => {
   const io = socket(server, {
-    cors: "http://localhost:5173",
+    cors: "https://devtinder-wmma.onrender.com",
   });
 
   io.on("connection", (socket) => {

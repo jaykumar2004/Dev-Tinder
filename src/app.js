@@ -17,7 +17,7 @@ const chatRouter = require("./routes/chat.js");
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://devtinder-wmma.onrender.com",
     credentials: true,
   })
 );
