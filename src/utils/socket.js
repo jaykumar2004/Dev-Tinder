@@ -12,6 +12,7 @@ const getSecretRoomId = (userId, targetUserId) => {
 const initializeSocket = (server) => {
   const io = socket(server, {
     cors: "https://devtinder-wmma.onrender.com",
+    credentials: true,
   });
 
   io.on("connection", (socket) => {
@@ -23,7 +24,7 @@ const initializeSocket = (server) => {
     });
     socket.on(
       "sendMessage",
-      async ({ firstName,lastName, userId, targetUserId, text }) => {
+      async ({ firstName, lastName, userId, targetUserId, text }) => {
         //save the message to the database
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
@@ -45,7 +46,7 @@ const initializeSocket = (server) => {
           });
 
           await chat.save();
-          io.to(roomId).emit("messageReceived", { firstName,lastName, text });
+          io.to(roomId).emit("messageReceived", { firstName, lastName, text });
         } catch (err) {
           console.log(err);
         }
